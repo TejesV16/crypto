@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <img src="logo.png" class="logo">
+            <ul>
+                <li><a href="https://coinmarketcap.com/">Market</a></li>
+                <li><a href="https://www.nseindia.com/">Stocks</a></li>
+                <li><a href="https://front.page/paper-trade">White Papers</a></li>
+            </ul>
+            <div class="btn">EN</div>
+        </nav>
+
+        <div class="content">
+            <h1>BUY & <br>SELL <span>Crypto</span></h1>
+            <p>World's biggest Cryptocurrency exchange available on web <br>as well as mobile phone.</p>
+            <div class="btn">Bull : Bear</div>
+        </div>
+
+        <div class="coin-list">
+            <div class="coin">
+                <img src="bitcoin.png">
+                <div>
+                    <h3>$<span id="bitcoin"></span></h3>
+                    <p>Bitcoin</p>
+                </div>
+            </div>
+            <div class="coin">
+                <img src="ethereum.png">
+                <div>
+                    <h3>$<span id="ethereum"></span></h3>
+                    <p>Ethereum</a></p>
+                </div>
+            </div>
+            <div class="coin">
+                <img src="dogecoin.png">
+                <div>
+                    <h3>$<span id="dogecoin"></span></h3>
+                    <p>Dogecoin</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<script>
+$(document).ready(function(){
+    function updateCoinPrices() {
+        $.ajax({
+            url: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+            method: 'GET',
+            success: function(response){
+                $('#bitcoin').text(response.bitcoin.usd);
+            },
+            error: function(err){
+                console.error('Error fetching Bitcoin price:', err);
+            }
+        });
+        $.ajax({
+            url: 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd',
+            method: 'GET',
+            success: function(response){
+                $('#ethereum').text(response.ethereum.usd);
+            },
+            error: function(err){
+                console.error('Error fetching Ethereum price:', err);
+            }
+        });
+        $.ajax({
+            url: 'https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=usd',
+            method: 'GET',
+            success: function(response){
+                $('#dogecoin').text(response.dogecoin.usd);
+            },
+            error: function(err){
+                console.error('Error fetching Dogecoin price:', err);
+            }
+        });
+    }
+    updateCoinPrices();
+    setInterval(updateCoinPrices, 5000);
+});
+</script>
+</body>
+</html>
